@@ -49,9 +49,15 @@ resource "aws_iam_role_policy_attachment" "glue1" {
   policy_arn = "arn:aws:iam::aws:policy/AWSGlueConsoleFullAccess"
 }
 
-# resource "aws_iam_role_policy" "glue_service_s3" {
-#  name = "${var.name_prefix}-${var.service}-glue-service-s3"
-#     role = "${aws_iam_role.glue.id}"
-#     policy = "${aws_iam_role_policy.my_s3_policy.policy}"
-# }
+# ## example for adding multiple aws managed permissions
+# ## 1. AWSLambdaBasicExecutionRole
+# ## 2. AmazonSageMakerFullAccess
+# resource "aws_iam_role_policy_attachment" "lambda" {
+#   for_each = toset([
+#     "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole", 
+#     "arn:aws:iam::aws:policy/AmazonSageMakerFullAccess"
+#   ])
 
+#   role       = aws_iam_role.lambda.name
+#   policy_arn = each.value
+# }
